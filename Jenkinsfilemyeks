@@ -2,7 +2,7 @@
 pipeline {
     agent any
    environment {
-  DOCKER_TAG = "getVersion()"
+  DOCKER_TAG = "sh returnStdout: true, script: 'git log -1 --oneline HEAD'"
 }
     stages{
         stage('git clone'){
@@ -25,9 +25,6 @@ pipeline {
         }
          
 }
-def getVersion(){
-    def commitHash = sh returnStdout: true, script: 'git rev-parse --short HEAD'
-    return commitHash
-}
+
 
 
