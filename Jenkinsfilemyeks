@@ -2,7 +2,7 @@
 pipeline {
     agent any
    environment {
-  DOCKER_TAG = "sh returnStdout: true, script: 'git log -1 --oneline HEAD'"
+  DOCKER_TAG = sh(returnStdout: true, script: 'git log -1 --oneline HEAD')
 }
     stages{
         stage('git clone'){
