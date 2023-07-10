@@ -1,8 +1,3 @@
-def getVersion(){
-    def commitHash = sh label: 'DOCKER_TAG', returnStatus: true, returnStdout: true, script: 'git rev-parse --short HEAD'
-    return commitHash
-}
- 
 
 pipeline {
     agent any
@@ -29,6 +24,10 @@ pipeline {
         }
         }
          
+}
+def getVersion(){
+    def commitHash = sh returnStdout: true, script: 'git rev-parse --short HEAD'
+    return commitHash
 }
 
 
