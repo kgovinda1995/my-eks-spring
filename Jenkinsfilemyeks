@@ -3,6 +3,7 @@ pipeline {
     stages{
         stage('git clone'){
             steps{
+                sh 'rm -rf my-eks-spring'
                 sh 'git clone https://github.com/kgovinda1995/my-eks-spring.git'
             }
         }
