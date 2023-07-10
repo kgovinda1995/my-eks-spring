@@ -1,10 +1,19 @@
+def getVersion(){
+    def commitHash = sh returnStdout: true, script: 'git rev-parse --short HEAD'
+    return commitHash
+}
+ 
+
 pipeline {
     agent any
+    environment {
+      DOCKER_TAG = "getVersion()"
+      }
     stages{
         stage('git clone'){
             steps{
                 sh 'rm -rf my-eks-spring'
-                sh 'git clone https://github.com/kgovinda1995/my-eks-spring.git'
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/kgovinda1995/my-eks-spring.git']])
             }
         }
         stage('maven build'){
@@ -12,6 +21,12 @@ pipeline {
             sh 'mvn clean install'
          }
     }
+
+        stage('image build'){
+            sh 'docker build -t  kgovinda:eks:$(DOCKER_TAG)'
+        }
         }
          
 }
+
+
