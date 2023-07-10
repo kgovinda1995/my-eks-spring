@@ -6,9 +6,9 @@ def getVersion(){
 
 pipeline {
     agent any
-    environment {
- DOCKER_TAG = "getVersion()"
-     }
+   environment {
+  DOCKER_TAG = "commitHash"
+}
     stages{
         stage('git clone'){
             steps{
