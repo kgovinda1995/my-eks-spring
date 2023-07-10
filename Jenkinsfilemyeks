@@ -1,5 +1,5 @@
 def getVersion(){
-    sh returnStdout: true, script: 'git rev-parse --short HEAD'
+    sh "returnStdout: true, script: 'git rev-parse --short HEAD'"
     return commitHash
 }
  
