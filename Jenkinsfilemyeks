@@ -1,8 +1,8 @@
-pipeline{
+pipeline {
     agent any
     stages{
-        stage{
-            steps('git clone'){
+        stage('git clone'){
+            steps{
                 sh 'git clone https://github.com/kgovinda1995/my-eks-spring.git'
             }
         }
