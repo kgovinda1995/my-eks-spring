@@ -19,7 +19,7 @@ pipeline {
 
         stage('image build'){
             steps{
-                sh 'docker build  -t  kgovinda/eks:${DOCKER_TAG} .'
+                sh 'docker build  -t  kgovinda/eks:${var.DOCKER_TAG} .'
             }
         }
         }
