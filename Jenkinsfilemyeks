@@ -3,7 +3,7 @@ pipeline {
     agent any
    environment {
   DOCKER_TAG = sh(returnStdout: true, script: 'git rev-parse --short=10 HEAD | tail -n +2')
-  YOUR_APPLICATION_PATH = "${WORKSPACE}"
+  YOUR_APPLICATION_PATH = "${WORKSPACE}/"
 }
    
        
@@ -25,9 +25,11 @@ pipeline {
 
         stage('image build'){
             steps{
+                sh '''#!/bin/bash
+          cd "\${YOUR_APPLICATION_PATH}"
                 
              sh 'docker buildx build -t kgovinda/eks:${var.DOCKER_TAG} .'
-            
+            '''
             }
         }
         }
