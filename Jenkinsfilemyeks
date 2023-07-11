@@ -9,6 +9,8 @@ pipeline {
         stage('maven build'){
            steps{
              sh 'mvn clean install'
+             sh 'cd /var/lib/jenkins/workspace/'
+             sh 'pwd'
              sh '''
              docker buildx build -t kgovinda/eks:${var.DOCKER_TAG} .
               
