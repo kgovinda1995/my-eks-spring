@@ -3,7 +3,7 @@ pipeline {
     agent any
    environment {
   DOCKER_TAG = sh(returnStdout: true, script: 'git rev-parse --short=10 HEAD | tail -n +2')
-  YOUR_APPLICATION_PATH = "${WORKSPACE}/my-eks"
+  YOUR_APPLICATION_PATH = "${WORKSPACE}"
 }
    
        
