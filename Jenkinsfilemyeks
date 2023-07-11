@@ -9,7 +9,7 @@ pipeline {
             /* clean up our workspace */
             deleteDir()
             /* clean up tmp directory */
-            dir("${workspace}/@tmp") {
+            dir("${workspace}/eks-tmp@tmp") {
                 deleteDir()
             }
             
