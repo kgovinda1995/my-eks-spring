@@ -15,8 +15,9 @@ pipeline {
         stage('maven build'){
             steps{
             sh '''#!/bin/bash 
-            cd /var/lib/jenkins/workspace/eks/
+            
              mvn clean install
+             cd /var/lib/jenkins/workspace/eks/
              docker buildx build -t kgovinda/eks:${var.DOCKER_TAG} .
 
             '''
