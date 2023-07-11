@@ -1,26 +1,5 @@
 pipeline {
     agent any
-          
-    environment {
-       YOUR_APPLICATION_PATH = "${WORKSPACE}/myapp/"
-     }
-
-      environment {
-  DOCKER_TAG = sh(returnStdout: true, script: 'git rev-parse --short=10 HEAD | tail -n +2')
-   }
-    post {
-        cleanup {
-            /* clean up our workspace */
-            deleteDir()
-            /* clean up tmp directory */
-            dir("${workspace}@tmp") {
-                deleteDir()
-            }
-            
-        }
-        
-    }
-   
     stages{
         stage('git clone'){
             steps{
