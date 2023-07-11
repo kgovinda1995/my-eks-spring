@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        node {
+        any {
             customWorkspace "/var/lib/jenkins/workspace/${JOB_NAME}_${BUILD_NUMBER}"
         }
     }
@@ -28,7 +28,9 @@ pipeline {
             }
         }
         stage('maven build'){
-            sh 'mvn clean install'
+           steps{
+             sh 'mvn clean install'
+           }
         }
         stage('image build'){
            steps{
