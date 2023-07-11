@@ -4,6 +4,9 @@ pipeline {
    environment {
   DOCKER_TAG = sh(returnStdout: true, script: 'git rev-parse --short=10 HEAD | tail -n +2')
    }
+   environment {
+  YOUR_APPLICATION_PATH = "{WORKSPACE}/eks2/"
+}
 
     stages{
         stage('git clone'){
@@ -17,7 +20,7 @@ pipeline {
             sh '''#!/bin/bash 
             
              mvn clean install
-             cd /var/lib/jenkins/workspace/eks/
+             cd "\${YOUR_APPLICATION_PATH}"
              docker buildx build -t kgovinda/eks:${var.DOCKER_TAG} .
 
             '''
