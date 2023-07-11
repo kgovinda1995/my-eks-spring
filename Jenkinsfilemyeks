@@ -17,24 +17,17 @@ pipeline {
         }
         stage('maven build'){
             steps{
-            sh 'mvn clean install'
-            sh 'docker info'
+            sh ''' 'mvn clean install'
+            sh 'docker buildx build -t kgovinda/eks:${var.DOCKER_TAG} .
+            '''
+            
          }
     }
     
-
-        stage('image build'){
-            steps{
-                sh '''#!/bin/bash
-          cd "\${YOUR_APPLICATION_PATH}"
-                
-             sh 'docker buildx build -t kgovinda/eks:${var.DOCKER_TAG} .'
-            '''
-            }
-        }
-        }
+    }
+ }
          
-}
+
 
 
 
