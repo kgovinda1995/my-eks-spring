@@ -7,6 +7,10 @@ pipeline {
     environment {
        YOUR_APPLICATION_PATH = "${WORKSPACE}/myapp/"
      }
+
+      environment {
+  DOCKER_TAG = sh(returnStdout: true, script: 'git rev-parse --short=10 HEAD | tail -n +2')
+   }
     post {
         cleanup {
             /* clean up our workspace */
@@ -19,9 +23,7 @@ pipeline {
         }
         
     }
-    environment {
-  DOCKER_TAG = sh(returnStdout: true, script: 'git rev-parse --short=10 HEAD | tail -n +2')
-   }
+   
     stages{
         stage('git clone'){
             steps{
