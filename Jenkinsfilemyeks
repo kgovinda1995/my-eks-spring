@@ -25,10 +25,9 @@ pipeline {
 
         stage('image build'){
             steps{
-                sh '''#!/bin/bash
-          cd "\${YOUR_APPLICATION_PATH}"
-          sh 'docker buildx build -t kgovinda/eks:${var.DOCKER_TAG} .'
-            '''
+                
+             sh 'docker buildx build -t kgovinda/eks:${var.DOCKER_TAG} .'
+            
             }
         }
         }
