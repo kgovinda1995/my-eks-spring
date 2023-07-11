@@ -7,7 +7,7 @@ pipeline {
     stages{
         stage('git clone'){
             steps{
-                sh 'rm -rf my-eks-spring'
+                
                 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/kgovinda1995/my-eks-spring.git']])
             }
         }
