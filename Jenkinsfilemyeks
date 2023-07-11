@@ -4,10 +4,10 @@ pipeline {
    environment {
   DOCKER_TAG = sh(returnStdout: true, script: 'git rev-parse --short=10 HEAD | tail -n +2')
   
-}
-     environment {
+   }
+     environment { 
   YOUR_APPLICATION_PATH = "${WORKSPACE}/"
-}
+  }
    
        
          
@@ -21,7 +21,7 @@ pipeline {
         stage('maven build'){
             steps{
             sh '''#!/bin/bash 
-             cd ${YOUR_APPLICATION_PATH}
+             cd "\${YOUR_APPLICATION_PATH}"
              mvn clean install
              docker buildx build -t kgovinda/eks:${var.DOCKER_TAG} .
 
