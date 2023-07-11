@@ -9,15 +9,12 @@ pipeline {
         stage('maven build'){
            steps{
              sh 'mvn clean install'
-           }
-        }
-        stage('image build'){
-           steps{
-            sh '''
+             sh '''
              docker buildx build -t kgovinda/eks:${var.DOCKER_TAG} .
               
            '''
            }
         }
+        
     }
 }
