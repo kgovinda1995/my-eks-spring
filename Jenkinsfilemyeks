@@ -1,13 +1,9 @@
-
+echo "The build number is ${env.BUILD_NUMBER}"
 pipeline {
     agent any
    environment {
   DOCKER_TAG = sh(returnStdout: true, script: 'git rev-parse --short=10 HEAD | tail -n +2')
-   }
-   environment {
-  YOUR_APPLICATION_PATH = "{WORKSPACE}/eks2/"
-}
-
+   
     stages{
         stage('git clone'){
             steps{
@@ -18,9 +14,9 @@ pipeline {
         stage('maven build'){
             steps{
             sh '''#!/bin/bash 
-            
+            echo "The build number is ${env.BUILD_NUMBER}"
              mvn clean install
-             cd "\${YOUR_APPLICATION_PATH}"
+             
              docker buildx build -t kgovinda/eks:${var.DOCKER_TAG} .
 
             '''
