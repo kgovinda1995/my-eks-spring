@@ -3,6 +3,7 @@ pipeline {
     agent any
    environment {
   DOCKER_TAG = sh(returnStdout: true, script: 'git rev-parse --short=10 HEAD | tail -n +2')
+   }
 
     stages{
         stage('git clone'){
@@ -24,4 +25,3 @@ pipeline {
     
      }
  }
-}
