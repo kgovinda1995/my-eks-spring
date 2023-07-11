@@ -4,6 +4,9 @@ pipeline {
             customWorkspace "/var/lib/jenkins/workspace/${JOB_NAME}_${BUILD_NUMBER}"
         }
     }
+    environment {
+       YOUR_APPLICATION_PATH = "${WORKSPACE}/myapp/"
+     }
     post {
         cleanup {
             /* clean up our workspace */
@@ -14,17 +17,7 @@ pipeline {
             }
             
         }
-    }
-    pre {
-        cleanup {
-            /* clean up our workspace */
-            deleteDir()
-            /* clean up tmp directory */
-            dir("${workspace}@tmp") {
-                deleteDir()
-            }
-            
-        }
+        
     }
     environment {
   DOCKER_TAG = sh(returnStdout: true, script: 'git rev-parse --short=10 HEAD | tail -n +2')
@@ -42,7 +35,11 @@ pipeline {
         }
         stage('image build'){
            steps{
-           sh 'docker buildx build -t kgovinda/eks:${var.DOCKER_TAG} . '
+            sh '''#!/bin/bash
+             cd "\${YOUR_APPLICATION_PATH}"
+          
+           docker buildx build -t kgovinda/eks:${var.DOCKER_TAG} . 
+           '''
            }
         }
     }
