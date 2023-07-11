@@ -1,27 +1,39 @@
-echo "The build number is ${env.BUILD_NUMBER}"
 pipeline {
-    agent any
-   environment {
+    agent {
+        node {
+            customWorkspace "/var/lib/jenkins/workspace/${JOB_NAME}_${BUILD_NUMBER}"
+        }
+    }
+    post {
+        cleanup {
+            /* clean up our workspace */
+            deleteDir()
+            /* clean up tmp directory */
+            dir("${workspace}@tmp") {
+                deleteDir()
+            }
+            /* clean up script directory */
+            dir("${workspace}@script") {
+                deleteDir()
+            }
+        }
+    }
+    environment {
   DOCKER_TAG = sh(returnStdout: true, script: 'git rev-parse --short=10 HEAD | tail -n +2')
-   
+   }
     stages{
         stage('git clone'){
             steps{
-                
                 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/kgovinda1995/my-eks-spring.git']])
             }
         }
         stage('maven build'){
-            steps{
-            sh '''#!/bin/bash 
-            echo "The build number is ${env.BUILD_NUMBER}"
-             mvn clean install
-             
-             docker buildx build -t kgovinda/eks:${var.DOCKER_TAG} .
-
-            '''
-            }
+            sh 'mvn clean install'
         }
-    
-     }
- }
+        stage('image build'){
+           steps{
+            docker buildx build -t kgovinda/eks:${var.DOCKER_TAG} .
+           }
+        }
+    }
+}
