@@ -20,7 +20,7 @@ pipeline {
           def imageTag = "kgovinda/eks:${dockerTag}"
           
           // Build the Docker image
-         sh  'docker.build(imageTag, '.')'
+         sh  'docker build . -t kgovinda/eks:$imageTag'
         }
      
       }
