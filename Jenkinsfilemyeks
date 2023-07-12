@@ -16,12 +16,11 @@ pipeline {
         stage('docker build'){
             steps{
                 script {
-          def dockerTag = env.BUILD_ID
+          def dockerTag = env.BUILD_ID ?: 'latest'
           def imageTag = "kgovinda/eks:${dockerTag}"
           
           // Build the Docker image
-         sh  'docker build . -t kgovinda/eks:${imageTag} '
-        }
+          docker.build(imageTag, '.')
      
       }
      }
