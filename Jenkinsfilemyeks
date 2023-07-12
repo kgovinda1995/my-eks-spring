@@ -31,6 +31,15 @@ pipeline {
     }
     
   }
+      stage('K8S Deploy') {
+        steps{   
+            script {
+                withCredentials([file(credentialsId: 'ekskubeconfig', variable: 'ekskubeconfig')]) {
+                 sh ('kubectl apply -f  eks-deploy-k8s.yaml')
+              }
+            }
+        }
+       }
 } 
 }
 
