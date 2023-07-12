@@ -14,10 +14,10 @@ pipeline {
         stage('maven build'){
             steps{
             sh '''#!/bin/bash 
-            echo "The build number is ${env.BUILD_NUMBER}"
+             echo "The build number is ${env.BUILD_NUMBER}"
              mvn clean install
              
-             docker buildx build -t kgovinda/eks:${var.DOCKER_TAG} .
+             docker buildx build -t kgovinda/eks:1.0 .
 
             '''
             }
