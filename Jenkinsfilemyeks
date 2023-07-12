@@ -30,7 +30,7 @@ pipeline {
             script{
                     // Push the Docker image
              docker.withRegistry('https://registry.hub.docker.com', 'dockerHubCredentials') {
-             sh 'docker.image(imageTag).push()'    
+             docker.image(imageTag).push()    
 
 }
 }
