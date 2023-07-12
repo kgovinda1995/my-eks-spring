@@ -21,21 +21,16 @@ pipeline {
           
           // Build the Docker image
           docker.build(imageTag, '.')
+
+          // Push the Docker image
+             docker.withRegistry('https://registry.hub.docker.com', 'dockerHubCredentials') {
+             docker.image(imageTag).push()
      
           }
         }
     }
-    stage('docker push'){
-            steps{
-            script{
-                    // Push the Docker image
-             docker.withRegistry('https://registry.hub.docker.com', 'dockerHubCredentials') {
-             docker.image(imageTag).push()    
-
-}
-}
-}
-}
+    
   }
 } 
+}
 
