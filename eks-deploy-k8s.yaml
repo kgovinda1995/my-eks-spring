@@ -16,8 +16,10 @@ spec:
     spec:
       containers:
       - name: my-springboot-app
-        image: kgovinda/eks:8
+        image: kgovinda/eks:
         imagePullPolicy: Always
+      imagePullSecrets:
+      - name: regcred
         ports:
         - containerPort: 8085
           name: http
