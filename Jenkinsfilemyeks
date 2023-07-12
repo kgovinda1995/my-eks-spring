@@ -25,5 +25,17 @@ pipeline {
       }
      }
  }
+           stage('docker push'){
+            steps{
+                script{
+                    withCredentials([string(credentialsId: 'dockerlogin', variable: 'dockercredentials')]) {
+                    sh 'docker log in -u kgovinda -p ${dockercredentials}'
+                    sh 'docker.image(imageTag).push()'
+
+}
+                }
 }
 }
+}
+}
+
