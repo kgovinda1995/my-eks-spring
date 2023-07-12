@@ -16,14 +16,12 @@ spec:
     spec:
       containers:
       - name: my-springboot-app
-        image: kgovinda/eks
+        image: kgovinda/eks:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8085
           name: http
-          protocol: TCP
-      imagePullSecrets:
-      - name: regcred    
+          protocol: TCP    
 # service type loadbalancer       
 ---
 apiVersion: v1
