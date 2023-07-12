@@ -22,20 +22,20 @@ pipeline {
           // Build the Docker image
           docker.build(imageTag, '.')
      
-      }
-     }
- }
-           stage('docker push'){
+          }
+        }
+    }
+    stage('docker push'){
             steps{
-                script{
-                    withCredentials([string(credentialsId: 'dockerlogin', variable: 'dockercredentials')]) {
-                    sh 'docker login -u kgovinda -p ${dockercredentials}'
-                    sh 'docker.image(imageTag).push()'
+            script{
+                    // Push the Docker image
+             docker.withRegistry('https://registry.hub.docker.com', 'dockerHubCredentials') {
+             docker.image(imageTag).push()    
 
 }
-                }
 }
 }
 }
-}
+  }
+} 
 
