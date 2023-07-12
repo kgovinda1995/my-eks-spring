@@ -1,9 +1,6 @@
 echo "The build number is ${env.BUILD_NUMBER}"
 pipeline {
     agent any
-   environment {
-     VERSION = "$env.BUILD_ID"
-   }
     stages{
         stage('git clone'){
             steps{
@@ -13,15 +10,20 @@ pipeline {
         }
         stage('maven build'){
             steps{
-            sh '''#!/bin/bash 
-             echo "The build number is ${env.BUILD_NUMBER}"
-             mvn clean install
-             
-             docker buildx build -t kgovinda/eks:'${env.VERSION}' .
-
-            '''
+             sh 'mvn clean install'
             }
         }
-    
+        stage('docker build'){
+            steps{
+                script {
+          def dockerTag = env.BUILD_ID
+          def imageTag = "kgovinda/eks:${dockerTag}"
+          
+          // Build the Docker image
+          docker buildx build -t kgovinda/eks:imageTAG .
+        }
+     
+      }
      }
  }
+}
