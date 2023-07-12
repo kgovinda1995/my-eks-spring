@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: my-springboot-app
-        image: kgovinda/eks:latest
+        image: kgovinda/eks
         imagePullPolicy: Always
         ports:
         - containerPort: 8085
