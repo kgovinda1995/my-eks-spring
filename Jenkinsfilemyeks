@@ -17,7 +17,7 @@ pipeline {
              echo "The build number is ${env.BUILD_NUMBER}"
              mvn clean install
              
-             docker buildx build -t kgovinda/eks:1.0 .
+             docker buildx build -t kgovinda/eks:${env.BUILD_NUMBER} .
 
             '''
             }
